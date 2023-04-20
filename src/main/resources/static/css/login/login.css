@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+
+
+h1 {
+	color: blue;
+	border: solid 10px black;
+	padding:10px 20px;
+
+}
+
+table {
+	border-collapse: collapse;
+}
+
+th, td {
+	border: solid 1px black;
+	padding: 10px 20px;
+}

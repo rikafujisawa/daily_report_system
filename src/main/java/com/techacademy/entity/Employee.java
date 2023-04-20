@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -14,6 +15,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "employee")
+
 public class Employee {
 
 
@@ -36,4 +38,7 @@ public class Employee {
 	/** 更新日時　*/
 	private LocalDateTime updated_at;
 
+
+	@OneToOne(mappedBy="employee")
+	private Authentication authentication;
 }
