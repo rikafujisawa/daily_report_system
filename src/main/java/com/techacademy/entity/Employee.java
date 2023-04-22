@@ -38,7 +38,6 @@ public class Employee {
     /** 更新日時　*/
     private LocalDateTime updated_at;
 
-
     @OneToOne(mappedBy="emp")
     private Authentication authentication;
 }
