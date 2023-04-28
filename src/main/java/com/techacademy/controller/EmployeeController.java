@@ -30,7 +30,7 @@ public class EmployeeController {
     @GetMapping("/list")
     public String getList(Model model) {
         // 全件検索結果をModelに登録
-        List<Employee> elist = service.getEmployeeList();
+        List<Employee> elist=service.getEmployeeList();
         model.addAttribute("emplist", elist);
         // employee/list.htmlに画面遷移
         return "employee/list";
@@ -39,19 +39,19 @@ public class EmployeeController {
     // ----- 詳細画面 -----
     /** Employeeを1件検索して返す */
     @GetMapping("/detail/{id}/")
-    public String getEmployee(@PathVariable("id") Integer id, Model model) {
+    public String getDetail(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("emp", service.getEmployee(id));
         // employee/detail.htmlに画面遷移
         return "employee/detail";
     }
 
-    /** Employee詳細編集画面を表示 */
+    /** 従業員情報編集ページを表示 */
     @GetMapping("/update/{id}/")
-    public String postEmployee(@PathVariable("id") Integer id, Model model) {
-        // Employee登録
+    public String getEmployee(@PathVariable("id") Integer id, Model model) {
+        //Employee登録
         model.addAttribute("emp", service.getEmployee(id));
         // 一覧画面に遷移
-        return "emoloyee/update";
+        return "employee/update";
     }
 
     /** Employee登録画面を表示 */
@@ -63,13 +63,14 @@ public class EmployeeController {
 
     /** Employee登録処理 */
     @PostMapping("/register")
-    public String postRegister(@Validated Employee emp, BindingResult res, Model model) {
-        if (res.hasErrors()) {
-            // エラーあり
-            return getRegister(emp);
-        }
+    public String postRegister(@Validated Employee emp,
+            BindingResult res, Model model) {
+             if(res.hasErrors()) {
+               //エラーあり
+                 return getRegister(emp);
+             }
         // 新規登録
-        Authentication au = emp.getAuthentication();
+        Authentication au=emp.getAuthentication();
         au.setEmp(emp);
         LocalDateTime datetime = LocalDateTime.now();
         emp.setCreatedAt(datetime);
@@ -81,3 +82,4 @@ public class EmployeeController {
     }
 
 }
+

@@ -14,19 +14,18 @@ import com.techacademy.repository.AuthenticationRepository;
 @Service
 public class AuthenticationService {
 
-    private final AuthenticationRepository repository;
+    private final AuthenticationRepository authenticationRepository;
 
     @Autowired
     public AuthenticationService(AuthenticationRepository repository) {
-        this.repository = repository;
+        this.authenticationRepository = repository;
     }
 
-    // 全件を検索して返す
+    /** 全件を検索して返す */
     public List<Authentication> getAuthenticationList() {
         // リポジトリのfindAllメソッドを呼び出す
-        return repository.findAll();
+        return authenticationRepository.findAll();
     }
-
 
 
 

@@ -27,7 +27,6 @@ public class Authentication {
 
     /** 主キー。 */
     @Id
-    @Column(length = 20, nullable = false)
     private String code;
 
     /** パスワード。255桁。null不許可 */
@@ -37,7 +36,7 @@ public class Authentication {
     private String password;
 
     /** 権限。3桁。null不許可 */
-    @Column(length = 3, nullable = false)
+    @Column(length = 3)
     @Enumerated(EnumType.STRING)
     @NotNull
     private Role role;

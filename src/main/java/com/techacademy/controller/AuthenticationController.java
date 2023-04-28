@@ -20,14 +20,6 @@ public class AuthenticationController {
         this.service = service;
     }
 
-    // ----- 一覧画面 -----
-    @GetMapping("/authen")
-    public String getList(Model model) {
-        // 全件検索結果をModelに登録
-        model.addAttribute("authenlist", service.getAuthenticationList());
-        // employee/list.htmlに画面遷移
-        return "authen/list";
-    }
 
 
 
