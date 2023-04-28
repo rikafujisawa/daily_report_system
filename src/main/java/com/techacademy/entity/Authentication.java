@@ -27,6 +27,7 @@ public class Authentication {
 
     /** 主キー。 */
     @Id
+    @NotEmpty
     private String code;
 
     /** パスワード。255桁。null不許可 */
