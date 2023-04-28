@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
@@ -43,6 +44,7 @@ public class Employee {
     /** 更新日時　*/
     private LocalDateTime updatedAt;
 
+    @Valid
     @OneToOne(mappedBy = "emp", cascade = CascadeType.ALL)
     private Authentication authentication;
 }

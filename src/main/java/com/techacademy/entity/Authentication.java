@@ -26,8 +26,11 @@ public class Authentication {
     }
 
     /** 主キー。 */
+    /**　社員番号。２０桁。null不許可　*/
     @Id
+    @Column(length = 20, nullable = false)
     @NotEmpty
+    @Length(max=20)
     private String code;
 
     /** パスワード。255桁。null不許可 */
@@ -37,7 +40,7 @@ public class Authentication {
     private String password;
 
     /** 権限。3桁。null不許可 */
-    @Column(length = 3)
+    @Column(length = 10)
     @Enumerated(EnumType.STRING)
     @NotNull
     private Role role;
