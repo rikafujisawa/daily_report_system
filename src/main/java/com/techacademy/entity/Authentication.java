@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -45,7 +46,7 @@ public class Authentication {
     @NotNull
     private Role role;
 
-
+    @Valid
     @OneToOne
     @JoinColumn(name="employee_id", referencedColumnName="id")
     private Employee emp;

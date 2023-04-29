@@ -2,6 +2,7 @@ package com.techacademy.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.techacademy.entity.Authentication;
 import com.techacademy.entity.Employee;
@@ -53,6 +55,25 @@ public class EmployeeController {
         // 一覧画面に遷移
         return "employee/update";
     }
+
+    /** 従業員情報編集処理 */
+    @PostMapping("/update/{id}/")
+    public String postEmployee(Employee emp) {
+        //Employee登録
+        service.saveEmployee(emp);
+        // 一覧画面に遷移
+        return "redirect:/employee/list";
+    }
+
+    /** 従業員削除処理 */
+    @PostMapping(path="list", params="deleteRun")
+    public String deleteRun(@RequestParam(name="idck") Set<Integer> idck, Model model) {
+        // Userを一括削除
+        service.deleteEmployee(idck);
+        // 一覧画面にリダイレクト
+        return "redirect:/employee/list";
+    }
+
 
     /** Employee登録画面を表示 */
     @GetMapping("/register")

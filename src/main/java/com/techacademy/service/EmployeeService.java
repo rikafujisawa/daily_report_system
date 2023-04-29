@@ -1,6 +1,7 @@
 package com.techacademy.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,9 +31,17 @@ public class EmployeeService {
         return employeeRepository.findById(id).get();
     }
 
+    /** Employeeの登録を行なう */
     @Transactional
     public Employee saveEmployee(Employee emp) {
         return employeeRepository.save(emp);
     }
 
+    /** Employeeの削除を行なう */
+    @Transactional
+    public void deleteEmployee(Set<Integer> idck) {
+        for (Integer id : idck) {
+            employeeRepository.deleteById(id);
+        }
+    }
 }
