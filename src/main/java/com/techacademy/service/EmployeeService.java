@@ -37,6 +37,17 @@ public class EmployeeService {
         return employeeRepository.save(emp);
     }
 
+    /** Employeeの更新を行なう */
+    @Transactional
+    public Employee setEmployee(Employee emp) {
+        return employeeRepository.save(emp);
+    }
+
+
+
+
+
+
     /** Employeeの削除を行なう */
     @Transactional
     public void deleteEmployee(Set<Integer> idck) {
@@ -44,4 +55,6 @@ public class EmployeeService {
             employeeRepository.deleteById(id);
         }
     }
+
+
 }

@@ -57,10 +57,22 @@ public class EmployeeController {
     }
 
     /** 従業員情報編集処理 */
+
     @PostMapping("/update/{id}/")
     public String postEmployee(Employee emp) {
-        //Employee登録
+        //Employee更新
+
+        @SuppressWarnings("unused")
+        Employee tableEmployee = service.getEmployee(emp.getId());
+        Authentication au=emp.getAuthentication();
+
+        au.setEmp(emp);
+        LocalDateTime datetime = LocalDateTime.now();
+        emp.setUpdatedAt(datetime);
+        emp.setCreatedAt(datetime);
+        emp.setDelete_flag(0);
         service.saveEmployee(emp);
+
         // 一覧画面に遷移
         return "redirect:/employee/list";
     }

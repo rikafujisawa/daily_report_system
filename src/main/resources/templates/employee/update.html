@@ -12,11 +12,13 @@
     <p>社員番号</p>
     <p th:text="${emp.authentication.code}"></p>
     <form method="post" th:action="@{/employee/update/{id}/(id=${emp.id})}"th:object="${emp}">
+    <input type="hidden" th:field="*{authentication.code}">
         <label for="name">名前</label><br>
          <input type="text" th:field="*{name}">
         <br>
         <label for="authentication.password">パスワード</label><br>
-         <input type="text" id="authentication.password"
+        <input type="hidden" th:field="*{authentication.password}">
+         <input type="text" id="*{authentication.password}"
          name="authentication.password" value="">
         <br>
         <label for="authentication.role">権限</label><br>
@@ -28,7 +30,7 @@
         <input type="submit" value="投稿">
         </form>
 
-    <input type="submit" name="deleteRun" id="deleteRun" value="(選択)したを一括削除">
+<input type="submit" name="deleteRun" id="deleteRun" value="この従業員情報を削除する"><br>
     <a th:href="@{/employee/list/}">一覧に戻る</a>
 </body>
 </html>

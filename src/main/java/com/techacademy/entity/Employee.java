@@ -48,4 +48,10 @@ public class Employee {
     @Valid
     @OneToOne(mappedBy = "emp", cascade = CascadeType.ALL)
     private Authentication authentication;
+
+
+
+
+
+
 }

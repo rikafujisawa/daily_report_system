@@ -46,7 +46,7 @@ public class Authentication {
     @NotNull
     private Role role;
 
-    @Valid
+
     @OneToOne
     @JoinColumn(name="employee_id", referencedColumnName="id")
     private Employee emp;

@@ -27,7 +27,10 @@ public class AuthenticationService {
         return authenticationRepository.findAll();
     }
 
-
-
+    /**Authenticationの更新を行なう */
+    @Transactional
+    public Authentication setAuthentication(Authentication au) {
+        return authenticationRepository.save(au);
+    }
 
 }
