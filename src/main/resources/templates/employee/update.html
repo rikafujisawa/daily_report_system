@@ -13,13 +13,14 @@
     <p th:text="${emp.authentication.code}"></p>
     <form method="post" th:action="@{/employee/update/{id}/(id=${emp.id})}"th:object="${emp}">
     <input type="hidden" th:field="*{authentication.code}">
+
+
         <label for="name">名前</label><br>
          <input type="text" th:field="*{name}">
         <br>
-        <label for="authentication.password">パスワード</label><br>
+       <label for="authentication.password">パスワード</label><br>
+
        <input type="password" th:field="*{authentication.password}" value="">
-
-
         <br>
         <label for="authentication.role">権限</label><br>
          <select th:field="*{authentication.role}">
@@ -29,7 +30,6 @@
         <br>
         <input type="submit" value="投稿">
         </form>
-
     <a th:href="@{/employee/list/}">この従業員情報を削除する</a><br>
     <a th:href="@{/employee/list/}">一覧に戻る</a>
 </body>

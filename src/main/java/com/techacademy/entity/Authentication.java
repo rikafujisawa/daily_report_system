@@ -38,6 +38,7 @@ public class Authentication {
     @Column(length = 255, nullable = false)
     @NotEmpty
     @Length(max=255)
+
     private String password;
 
     /** 権限。3桁。null不許可 */
