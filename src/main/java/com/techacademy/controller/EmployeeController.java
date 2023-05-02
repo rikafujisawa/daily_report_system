@@ -65,7 +65,6 @@ public class EmployeeController {
         @SuppressWarnings("unused")
         Employee tableEmployee = service.getEmployee(emp.getId());
         Authentication au=emp.getAuthentication();
-
         au.setEmp(emp);
         LocalDateTime datetime = LocalDateTime.now();
         emp.setUpdatedAt(datetime);
@@ -77,9 +76,9 @@ public class EmployeeController {
         return "redirect:/employee/list";
     }
 
-    /** 従業員削除処理 */
-    @PostMapping(path="list", params="deleteRun")
-    public String deleteRun(@RequestParam(name="idck") Set<Integer> idck, Model model) {
+    /** 従業員　論理削除処理 */
+    @PostMapping(path="list", params="delete_flag")
+    public String delete_flag(@RequestParam(name="idck") Set<Integer> idck, Model model) {
         // Userを一括削除
         service.deleteEmployee(idck);
         // 一覧画面にリダイレクト
