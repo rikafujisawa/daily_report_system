@@ -9,10 +9,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 import lombok.Data;
 
@@ -35,10 +38,10 @@ public class Authentication {
     private String code;
 
     /** パスワード。255桁。null不許可 */
-    @Column(length = 255, nullable = false)
-    @NotEmpty
-    @Length(max=255)
-
+    @Column(length = 255)
+    //@Size
+@NotEmpty
+    @Length(min=0, max=255)
     private String password;
 
     /** 権限。3桁。null不許可 */

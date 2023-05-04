@@ -19,6 +19,7 @@
         <br>
         <label for="authentication.password">パスワード</label><br>
         <input type="password" th:field="*{authentication.password}" th:errorclass="err">
+
         <span th:errors="*{authentication.password}" class="err"></span>
         <br>
         <label for="authentication.role">権限</label><br>

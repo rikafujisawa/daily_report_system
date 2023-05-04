@@ -39,7 +39,7 @@ public class Employee {
     /**　削除フラグ　*/
     private Integer delete_flag;
 
-    /** 登録日時　*/
+    /** 登録日時　*/   
     private LocalDateTime createdAt;
 
     /** 更新日時　*/

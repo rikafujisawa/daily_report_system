@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,7 +35,7 @@ public class EmployeeController {
     @GetMapping("/list")
     public String getList(Model model) {
         // 全件検索結果をModelに登録
-        List<Employee> elist=service.getEmployeeList();
+        List<Employee> elist = service.getEmployeeList();
         model.addAttribute("emplist", elist);
         // employee/list.htmlに画面遷移
         return "employee/list";
@@ -50,7 +53,7 @@ public class EmployeeController {
     /** 従業員情報編集ページを表示 */
     @GetMapping("/update/{id}/")
     public String getEmployee(@PathVariable("id") Integer id, Model model) {
-        //Employee登録
+        // Employee登録
         model.addAttribute("emp", service.getEmployee(id));
         // 一覧画面に遷移
         return "employee/update";
@@ -59,16 +62,24 @@ public class EmployeeController {
     /** 従業員情報編集処理 */
 
     @PostMapping("/update/{id}/")
-    public String postEmployee(Employee emp) {
-        //Employee更新
+    public String postEmployee(@RequestParam("newpass") String newpass,@Validated Employee emp, BindingResult res, Model model) {
+        // Employee更新
+        if (res.hasErrors()) {
+            // エラーあり
+            return getEmployee(emp.getId(),model);
+        }
 
         @SuppressWarnings("unused")
         Employee tableEmployee = service.getEmployee(emp.getId());
-        Authentication au=emp.getAuthentication();
+        Authentication au = emp.getAuthentication();
+        if (newpass.equals("")) {
+            au.setPassword(tableEmployee.getAuthentication().getPassword());
+
+        }
         au.setEmp(emp);
+
         LocalDateTime datetime = LocalDateTime.now();
         emp.setUpdatedAt(datetime);
-        emp.setCreatedAt(datetime);
         emp.setDelete_flag(0);
         service.saveEmployee(emp);
 
@@ -76,15 +87,14 @@ public class EmployeeController {
         return "redirect:/employee/list";
     }
 
-    /** 従業員　論理削除処理 */
-    @PostMapping(path="list", params="delete_flag")
-    public String delete_flag(@RequestParam(name="idck") Set<Integer> idck, Model model) {
+    /** 従業員 論理削除処理 */
+    @PostMapping(path = "list", params = "delete_flag")
+    public String delete_flag(@RequestParam(name = "idck") Set<Integer> idck, Model model) {
         // Userを一括削除
         service.deleteEmployee(idck);
         // 一覧画面にリダイレクト
         return "redirect:/employee/list";
     }
-
 
     /** Employee登録画面を表示 */
     @GetMapping("/register")
@@ -94,15 +104,16 @@ public class EmployeeController {
     }
 
     /** Employee登録処理 */
+
     @PostMapping("/register")
-    public String postRegister(@Validated Employee emp,
-            BindingResult res, Model model) {
-             if(res.hasErrors()) {
-               //エラーあり
-                 return getRegister(emp);
-             }
+    public String postRegister(@Validated Employee emp, BindingResult res, Model model) {
+        if (res.hasErrors()) {
+            // エラーあり
+            return getRegister(emp);
+        }
+
         // 新規登録
-        Authentication au=emp.getAuthentication();
+        Authentication au = emp.getAuthentication();
         au.setEmp(emp);
         LocalDateTime datetime = LocalDateTime.now();
         emp.setCreatedAt(datetime);
@@ -114,4 +125,3 @@ public class EmployeeController {
     }
 
 }
-
