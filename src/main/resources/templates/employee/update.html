@@ -11,25 +11,25 @@
     <p>(パスワードは変更する場合のみ入力してください)</p>
     <p>社員番号</p>
     <p th:text="${emp.authentication.code}"></p>
-    <form method="post" th:action="@{/employee/update/{id}/(id=${emp.id})}"th:object="${emp}">
-    <input type="hidden" th:field="*{authentication.code}">
-    <input type="hidden" th:field="*{createdAt}">
-    <input type="hidden" th:field="*{authentication.password}">
-        <label for="name">名前</label><br>
-         <input type="text" th:field="*{name}">
-        <br>
-       <label for="newpass">パスワード</label><br>
-        <input type="password" name="newpass" />
-        <br>
-        <label for="authentication.role">権限</label><br>
-         <select th:field="*{authentication.role}">
+    <form method="post" th:action="@{/employee/update/{id}/(id=${emp.id})}"
+        th:object="${emp}">
+        <input type="hidden" th:field="*{authentication.code}"> <input
+            type="hidden" th:field="*{createdAt}"> <input type="hidden"
+            th:field="*{authentication.password}"> <label for="name">名前</label><br>
+        <input type="text" th:field="*{name}"> <br> <label
+            for="newpass">パスワード</label><br> <input type="password"
+            name="newpass" /> <br> <label for="authentication.role">権限</label><br>
+        <select th:field="*{authentication.role}">
             <option value="" th:text="選択してください">
-            <option th:each="item:${T(com.techacademy.entity.Authentication.Role).values()}" th:value="${item}" th:text="${item}" th:selected="*{authentication.role} == ${item}">
-        </select>
-        <br>
-        <input type="submit" value="投稿">
-        </form>
-    <a th:href="@{/employee/list/}">この従業員情報を削除する</a><br>
+            <option
+                th:each="item:${T(com.techacademy.entity.Authentication.Role).values()}"
+                th:value="${item}" th:text="${item}"
+                th:selected="*{authentication.role} == ${item}">
+        </select> <br> <input type="submit" value="投稿"> <br>
+    </form>
+    <br>
+    <a th:href="@{/employee/delete/{id}/(id=${emp.id})}"> この従業員情報を削除する</a>
+    <br>
     <a th:href="@{/employee/list/}">一覧に戻る</a>
 </body>
 </html>

@@ -2,11 +2,6 @@ package com.techacademy.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -88,13 +83,16 @@ public class EmployeeController {
     }
 
     /** 従業員 論理削除処理 */
-    @PostMapping(path = "list", params = "delete_flag")
-    public String delete_flag(@RequestParam(name = "idck") Set<Integer> idck, Model model) {
-        // Userを一括削除
-        service.deleteEmployee(idck);
-        // 一覧画面にリダイレクト
-        return "redirect:/employee/list";
-    }
+    @GetMapping("/delete/{id}")
+    public String deleteEmployee(@PathVariable("id") Integer id) {
+
+        Employee emp = service.getEmployee(id);
+        emp.setDelete_flag(1);
+        service.saveEmployee(emp);
+
+       return "redirect:/employee/list";
+     }
+
 
     /** Employee登録画面を表示 */
     @GetMapping("/register")

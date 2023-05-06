@@ -43,18 +43,14 @@ public class EmployeeService {
         return employeeRepository.save(emp);
     }
 
-
-
-
-
-
-    /** Employeeの削除を行なう */
+    /** Employeeの削除を行なう
+     * @return */
     @Transactional
-    public void deleteEmployee(Set<Integer> idck) {
-        for (Integer id : idck) {
-            employeeRepository.deleteById(id);
+    public Employee deleteEmployee(Set<Integer> id) {
+        return employeeRepository.save(id);
+
         }
     }
 
 
-}
+
