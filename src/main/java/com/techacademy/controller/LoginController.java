@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class LoginController {
 
-	@GetMapping("/")
-	public String getLogin() {
-		// login.htmlに画面遷移
-		return "login";
-	}
+    @GetMapping("/login")
+    public String getLogin() {
+        // login.htmlに画面遷移
+        return "login";
+    }
 }

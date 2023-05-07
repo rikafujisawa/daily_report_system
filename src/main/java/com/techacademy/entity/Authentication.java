@@ -40,7 +40,7 @@ public class Authentication {
     /** パスワード。255桁。null不許可 */
     @Column(length = 255)
     //@Size
-@NotEmpty
+    @NotEmpty
     @Length(min=0, max=255)
     private String password;
 
@@ -54,4 +54,17 @@ public class Authentication {
     @OneToOne
     @JoinColumn(name="employee_id", referencedColumnName="id")
     private Employee emp;
-}
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
