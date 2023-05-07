@@ -2,6 +2,9 @@ package com.techacademy.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +24,7 @@ import com.techacademy.service.EmployeeService;
 @RequestMapping("employee")
 public class EmployeeController {
     private final EmployeeService service;
+
 
     public EmployeeController(EmployeeService service) {
         this.service = service;
@@ -102,7 +106,8 @@ public class EmployeeController {
     }
 
     /** Employee登録処理 */
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @PostMapping("/register")
     public String postRegister(@Validated Employee emp, BindingResult res, Model model) {
         if (res.hasErrors()) {
@@ -112,6 +117,10 @@ public class EmployeeController {
 
         // 新規登録
         Authentication au = emp.getAuthentication();
+        // パスワードの暗号化
+        String password = emp.getAuthentication().getPassword();
+        au.setPassword(passwordEncoder.encode(password));
+        //暗号化後の登録
         au.setEmp(emp);
         LocalDateTime datetime = LocalDateTime.now();
         emp.setCreatedAt(datetime);
@@ -119,6 +128,7 @@ public class EmployeeController {
         emp.setDelete_flag(0);
         service.saveEmployee(emp);
         // 一覧画面にリダイレクト
+
         return "redirect:/employee/list";
     }
 

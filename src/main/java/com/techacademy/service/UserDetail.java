@@ -2,8 +2,10 @@ package com.techacademy.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.techacademy.entity.Employee;
@@ -11,16 +13,20 @@ import com.techacademy.entity.Employee;
 public class UserDetail implements UserDetails {
     private static final long serialVersionUID = 1L;
 
-    private final Employee emp;
+    private final Employee employee;
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetail(Employee emp) {
-        this.emp = emp;
-        this.authorities = new ArrayList<GrantedAuthority>();
+
+    public UserDetail(Employee employee) {
+        this.employee = employee;
+
+            List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
+            authorities.add(new SimpleGrantedAuthority(employee.getAuthentication().getRole().toString()));
+            this.authorities = authorities;
     }
 
     public Employee getUser() {
-        return emp;
+        return employee;
     }
 
     @Override
@@ -30,12 +36,12 @@ public class UserDetail implements UserDetails {
 
     @Override
     public String getPassword() {
-        return emp.getAuthentication().getPassword();
+        return employee.getAuthentication().getPassword();
     }
 
     @Override
     public String getUsername() {
-        return emp.getAuthentication().getCode();
+        return employee.getAuthentication().getCode();
     }
 
     @Override
@@ -61,4 +67,6 @@ public class UserDetail implements UserDetails {
         // ユーザーが有効であればtrueを返す
         return true;
     }
+
+
 }
