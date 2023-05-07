@@ -3,16 +3,19 @@
 <head>
 <meta charset="utf-8">
 <title>日報管理</title>
-<link rel="stylesheet" href="/css/login/login.css">
+<link rel="stylesheet" href="/css/login/top.css">
 </head>
 <body>
     <h1>日報管理システム</h1>
+<footer>
+   <div id="footer_navi">
+   <ul>
+    <li><a th:href="@{/employee/list}">従業員管理</a></li>
+    <li>日報管理</li>
 
-    <a th:href="@{/employee/list}">従業員管理</a>
-    <p>日報管理</p>
-
-    <a th:href="@{/login}">ログアウト</a>
-
-
+    <li>名前</li>
+    <li><a th:href="@{/login}">ログアウト</a></li>
+   </ul></div>
+</footer>
 </body>
 </html>

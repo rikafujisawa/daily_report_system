@@ -7,10 +7,17 @@
 </head>
 <body>
     <h1>日報管理システム</h1>
+<footer>
+   <div id="footer_navi">
+   <ul>
+    <li><a th:href="@{/employee/list}">従業員管理</a></li>
+    <li>日報管理</li>
+
+    <li>名前</li>
+    <li><a th:href="@{/login}">ログアウト</a></li>
+   </ul></div>
+</footer>
     <h2>従業員一覧</h2>
-     <form method="post" th:action="@{/logout}">
-        <input type="submit" value="ログアウト">
-    </form><br>
     <table>
         <tr>
             <th>社員番号</th>

@@ -7,6 +7,16 @@
 </head>
 <body>
     <h1>日報管理システム</h1>
+<footer>
+   <div id="footer_navi">
+   <ul>
+    <li><a th:href="@{/employee/list}">従業員管理</a></li>
+    <li>日報管理</li>
+
+    <li>名前</li>
+    <li><a th:href="@{/login}">ログアウト</a></li>
+   </ul></div>
+</footer>
     <h2 th:text="|id:${emp.id}の従業員情報　編集ページ|"></h2>
     <p>(パスワードは変更する場合のみ入力してください)</p>
     <p>社員番号</p>
