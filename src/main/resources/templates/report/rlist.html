@@ -2,39 +2,41 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
-<title>日報管理</title>
+<title>日報管理システム</title>
 <link rel="stylesheet" href="/css/login/login.css">
 </head>
 <body>
-    <h1>日報管理システム</h1>
+    <h1>日報管理システムへようこそ</h1>
 <footer>
    <div id="footer_navi">
    <ul>
     <li><a th:href="@{/employee/list}">従業員管理</a></li>
     <li><a th:href="@{/report/rlist}">日報管理</a></li>
-
     <li>名前</li>
     <li><a th:href="@{/login}">ログアウト</a></li>
    </ul></div>
 </footer>
-    <h2>従業員一覧</h2>
-    <table>
+    <h2>【自分の日報一覧】</h2>
+        <table>
         <tr>
-            <th>社員番号</th>
             <th>氏名</th>
+            <th>日付</th>
+            <th>タイトル</th>
             <th>操作</th>
         </tr>
-        <tr th:each="emp : ${emplist}">
-            <td th:text="${emp.authentication.code}"></td>
-            <td th:text="${emp.name}"></td>
-            <td><a th:href="@{/employee/detail/{id}/(id=${emp.id})}">詳細を見る</a></td>
+        <tr th:each="report : ${reportlist}">
+        <td th:text="${report.name}"></td>
+        <td th:text="${report.reportDate}"></td>
+        <td th:text="${report.title}"></td>
+
+
         </tr>
     </table>
     <span>(全</span>
-    <span th:text="${emplist.size}"></span>
+    <span th:text="${reportlist.size}"></span>
     <span>件)</span>
     <br>
-    <a th:href="@{/employee/register}">新規従業員の登録</a>
+    <p>新規日報の登録</p>
+
 </body>
 </html>
-

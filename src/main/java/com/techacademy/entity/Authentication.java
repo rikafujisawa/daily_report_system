@@ -41,7 +41,6 @@ public class Authentication {
 
     /** パスワード。255桁。null不許可 */
     @Column(length = 255)
-    //@Size
     @NotEmpty
     @Length(min=0, max=255)
     private String password;

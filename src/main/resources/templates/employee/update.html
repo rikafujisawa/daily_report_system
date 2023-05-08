@@ -23,11 +23,12 @@
     <p th:text="${emp.authentication.code}"></p>
     <form method="post" th:action="@{/employee/update/{id}/(id=${emp.id})}"
         th:object="${emp}">
-        <input type="hidden" th:field="*{authentication.code}"> <input
-            type="hidden" th:field="*{createdAt}"> <input type="hidden"
-            th:field="*{authentication.password}"> <label for="name">名前</label><br>
-        <input type="text" th:field="*{name}"> <br> <label
-            for="newpass">パスワード</label><br> <input type="password"
+        <input type="hidden" th:field="*{authentication.code}">
+        <input type="hidden" th:field="*{createdAt}">
+        <input type="hidden" name="authentication.password" value="1">
+        <label for="name">名前</label><br>
+        <input type="text" th:field="*{name}"> <br>
+        <label for="newpass">パスワード</label><br> <input type="password"
             name="newpass" /> <br> <label for="authentication.role">権限</label><br>
         <select th:field="*{authentication.role}">
             <option value="" th:text="選択してください">

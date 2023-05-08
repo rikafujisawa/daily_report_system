@@ -25,7 +25,6 @@ import com.techacademy.service.EmployeeService;
 public class EmployeeController {
     private final EmployeeService service;
 
-
     public EmployeeController(EmployeeService service) {
         this.service = service;
     }
@@ -61,20 +60,26 @@ public class EmployeeController {
     /** 従業員情報編集処理 */
 
     @PostMapping("/update/{id}/")
-    public String postEmployee(@RequestParam("newpass") String newpass,@Validated Employee emp, BindingResult res, Model model) {
+    public String postEmployee(@RequestParam("newpass") String newpass, @Validated Employee emp, BindingResult res,
+            Model model) {
         // Employee更新
         if (res.hasErrors()) {
             // エラーあり
-            return getEmployee(emp.getId(),model);
+            return getEmployee(emp.getId(), model);
         }
 
         @SuppressWarnings("unused")
         Employee tableEmployee = service.getEmployee(emp.getId());
         Authentication au = emp.getAuthentication();
+
         if (newpass.equals("")) {
             au.setPassword(tableEmployee.getAuthentication().getPassword());
-
+        } else {
+            // パスワードの暗号化
+            String pass = passwordEncoder.encode(newpass);
+            au.setPassword(pass);
         }
+
         au.setEmp(emp);
 
         LocalDateTime datetime = LocalDateTime.now();
@@ -94,9 +99,8 @@ public class EmployeeController {
         emp.setDelete_flag(1);
         service.saveEmployee(emp);
 
-       return "redirect:/employee/list";
-     }
-
+        return "redirect:/employee/list";
+    }
 
     /** Employee登録画面を表示 */
     @GetMapping("/register")
@@ -108,6 +112,7 @@ public class EmployeeController {
     /** Employee登録処理 */
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     @PostMapping("/register")
     public String postRegister(@Validated Employee emp, BindingResult res, Model model) {
         if (res.hasErrors()) {
@@ -120,7 +125,7 @@ public class EmployeeController {
         // パスワードの暗号化
         String password = emp.getAuthentication().getPassword();
         au.setPassword(passwordEncoder.encode(password));
-        //暗号化後の登録
+        // 暗号化後の登録
         au.setEmp(emp);
         LocalDateTime datetime = LocalDateTime.now();
         emp.setCreatedAt(datetime);
