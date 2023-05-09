@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>日報管理</title>
+<link rel="stylesheet" href="/css/login/login.css">
+</head>
+<body>
+    <h1>日報管理システム</h1>
+<footer>
+   <div id="footer_navi">
+   <ul>
+    <li><a th:href="@{/employee/list}">従業員管理</a></li>
+    <li><a th:href="@{/report/rlist}">日報管理</a></li>
+    <li th:text="|${user.user.name}さん|"></li>
+    <li><a th:href="@{/login}">ログアウト</a></li>
+   </ul></div>
+</footer>
+    <h2>日報 編集ページ</h2>
+     <form method="post" th:action="@{/report/rupdate/{id}/(id=${report.id})}"
+        th:object="${report}">
+        <label for="reportDate">日付</label><br>
+        <input type="date" th:field="*{reportDate}" value="${today}">
+        <br>
+        <p>氏名</p>
+        <p th:text="${report.emp.name}"></p>
+        <br>
+        <label for="title">タイトル</label><br>
+        <input type="text" th:field="*{title}">
+        <br>
+        <label for="">内容</label><br>
+        <input type="text" th:field="*{content}"><br><br>
+        <input type="submit" value="投稿"> <br>
+        </form>
+
+    <a th:href="@{/report/allreport/}">一覧に戻る</a>
+</body>
+</html>

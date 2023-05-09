@@ -1,9 +1,9 @@
 package com.techacademy.entity;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,7 +44,7 @@ public class Report {
 
     /** 従業員テーブルのid　*/
     @ManyToOne
-    @JoinColumn(name="employee_id", referencedColumnName="id",insertable = false, updatable = false)
+    @JoinColumn(name="employee_id", referencedColumnName="id")
     private Employee emp;
 
 

@@ -12,7 +12,7 @@
    <ul>
     <li><a th:href="@{/employee/list}">従業員管理</a></li>
     <li><a th:href="@{/report/rlist}">日報管理</a></li>
-    <li>名前</li>
+    <li th:text="|${user.user.name}さん|"></li>
     <li><a th:href="@{/login}">ログアウト</a></li>
    </ul></div>
 </footer>
@@ -25,18 +25,17 @@
             <th>操作</th>
         </tr>
         <tr th:each="report : ${reportlist}">
-        <td th:text="${report.name}"></td>
-        <td th:text="${report.reportDate}"></td>
-        <td th:text="${report.title}"></td>
-
-
+            <td th:text="${report.emp.name}"></td>
+            <td th:text="${report.reportDate}"></td>
+            <td th:text="${report.title}"></td>
+            <td><a th:href="@{/report/rdetail/{id}/(id=${report.emp.id})}">詳細を見る</a></td>
         </tr>
     </table>
     <span>(全</span>
     <span th:text="${reportlist.size}"></span>
     <span>件)</span>
     <br>
-    <p>新規日報の登録</p>
+    <a th:href="@{/report/newreport/}" >新規日報の登録</a>
 
 </body>
 </html>

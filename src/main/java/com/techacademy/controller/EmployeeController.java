@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.techacademy.entity.Authentication;
 import com.techacademy.entity.Employee;
 import com.techacademy.service.EmployeeService;
+import com.techacademy.service.UserDetail;
 
 @Controller
 @RequestMapping("employee")
@@ -31,7 +33,8 @@ public class EmployeeController {
 
     // ----- 一覧画面 -----
     @GetMapping("/list")
-    public String getList(Model model) {
+    public String getList(@AuthenticationPrincipal UserDetail user, Model model) {
+        model.addAttribute("user", user);
         // 全件検索結果をModelに登録
         List<Employee> elist = service.getEmployeeList();
         model.addAttribute("emplist", elist);
@@ -42,7 +45,8 @@ public class EmployeeController {
     // ----- 詳細画面 -----
     /** Employeeを1件検索して返す */
     @GetMapping("/detail/{id}/")
-    public String getDetail(@PathVariable("id") Integer id, Model model) {
+    public String getDetail(@AuthenticationPrincipal UserDetail user, @PathVariable("id") Integer id, Model model) {
+        model.addAttribute("user", user);
         model.addAttribute("emp", service.getEmployee(id));
         // employee/detail.htmlに画面遷移
         return "employee/detail";
@@ -79,9 +83,7 @@ public class EmployeeController {
             String pass = passwordEncoder.encode(newpass);
             au.setPassword(pass);
         }
-
         au.setEmp(emp);
-
         LocalDateTime datetime = LocalDateTime.now();
         emp.setUpdatedAt(datetime);
         emp.setDelete_flag(0);
@@ -115,6 +117,7 @@ public class EmployeeController {
 
     @PostMapping("/register")
     public String postRegister(@Validated Employee emp, BindingResult res, Model model) {
+
         if (res.hasErrors()) {
             // エラーあり
             return getRegister(emp);
