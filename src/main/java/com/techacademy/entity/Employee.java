@@ -47,7 +47,7 @@ public class Employee {
     /** 更新日時　*/
     private LocalDateTime updatedAt;
 
-
+    @Valid
     @OneToOne(mappedBy = "emp", cascade = CascadeType.ALL)
     private Authentication authentication;
 

@@ -54,7 +54,8 @@ public class EmployeeController {
 
     /** 従業員情報編集ページを表示 */
     @GetMapping("/update/{id}/")
-    public String getEmployee(@PathVariable("id") Integer id, Model model) {
+    public String getEmployee(@AuthenticationPrincipal UserDetail user, @PathVariable("id") Integer id, Model model) {
+        model.addAttribute("user", user);
         // Employee登録
         model.addAttribute("emp", service.getEmployee(id));
         // 一覧画面に遷移
@@ -64,12 +65,13 @@ public class EmployeeController {
     /** 従業員情報編集処理 */
 
     @PostMapping("/update/{id}/")
-    public String postEmployee(@RequestParam("newpass") String newpass, @Validated Employee emp, BindingResult res,
+    public String postEmployee(@AuthenticationPrincipal UserDetail user, @RequestParam("newpass") String newpass, @Validated Employee emp, BindingResult res,
             Model model) {
+        model.addAttribute("user", user);
         // Employee更新
         if (res.hasErrors()) {
             // エラーあり
-            return getEmployee(emp.getId(), model);
+            return getEmployee(user, emp.getId(), model);
         }
 
         @SuppressWarnings("unused")
@@ -106,7 +108,8 @@ public class EmployeeController {
 
     /** Employee登録画面を表示 */
     @GetMapping("/register")
-    public String getRegister(@ModelAttribute Employee emp) {
+    public String getRegister(@AuthenticationPrincipal UserDetail user, @ModelAttribute Employee emp, Model model) {
+        model.addAttribute("user", user);
         // 登録画面に遷移
         return "employee/register";
     }
@@ -120,9 +123,9 @@ public class EmployeeController {
         model.addAttribute("user", user);
         if (res.hasErrors()) {
             // エラーあり
-            return getRegister(emp);
+            return getRegister(user, emp, model);
         }
-       
+
         // 新規登録
         Authentication au = emp.getAuthentication();
         // パスワードの暗号化
