@@ -25,10 +25,11 @@
             <th>操作</th>
         </tr>
         <tr th:each="report : ${reportlist}">
+
             <td th:text="${report.emp.name}"></td>
             <td th:text="${report.reportDate}"></td>
             <td th:text="${report.title}"></td>
-            <td><a th:href="@{/report/rdetail/{id}/(id=${report.emp.id})}">詳細を見る</a></td>
+            <td><a th:href="@{/report/rdetail/{id}/(id=${report.id})}">詳細を見る</a></td>
         </tr>
     </table>
     <span>(全</span>
