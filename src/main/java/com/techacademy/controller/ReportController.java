@@ -102,12 +102,9 @@ import com.techacademy.service.UserDetail;
         /** 日報　編集処理 */
 
         @PostMapping("/rupdate/{id}/")
-        public String postRdetail(@Validated Report report) {
+        public String postRdetail(@AuthenticationPrincipal UserDetail user, @Validated Report report,Model model) {
             // 日報の登録
-
-
-
-
+            report.setEmp(user.getUser());
             LocalDateTime datetime = LocalDateTime.now();
             report.setUpdatedAt(datetime);
             report.setCreatedAt(datetime);

@@ -17,8 +17,7 @@
    </ul></div>
 </footer>
     <h2>日報 編集ページ</h2>
-     <form method="post" th:action="@{/report/rupdate/{id}/(id=${report.id})}"
-        th:object="${report}">
+     <form method="post" th:action="@{/report/rupdate/{id}/(id=${report.id})}" th:object="${report}">
         <label for="reportDate">日付</label><br>
         <input type="date" th:field="*{reportDate}" value="${today}">
         <br>
