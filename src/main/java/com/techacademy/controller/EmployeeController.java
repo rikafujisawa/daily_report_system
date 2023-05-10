@@ -116,13 +116,13 @@ public class EmployeeController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
-    public String postRegister(@Validated Employee emp, BindingResult res, Model model) {
-
+    public String postRegister(@AuthenticationPrincipal UserDetail user, @Validated Employee emp, BindingResult res, Model model) {
+        model.addAttribute("user", user);
         if (res.hasErrors()) {
             // エラーあり
             return getRegister(emp);
         }
-
+       
         // 新規登録
         Authentication au = emp.getAuthentication();
         // パスワードの暗号化
