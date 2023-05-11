@@ -94,6 +94,9 @@ import com.techacademy.service.UserDetail;
             // Report登録
             model.addAttribute("user", user);
             model.addAttribute("report", service.getReport(id));
+
+            if (id.equals("id")) {
+            }
             // 一覧画面に遷移
             return "report/rupdate";
         }

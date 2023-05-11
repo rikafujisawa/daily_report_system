@@ -61,3 +61,18 @@ lavel{
 .err{
     color: red;
 }
+
+.contact-form textarea{
+        height:200px;
+    }
+.content {
+
+  height: 200px;
+  background-color: white;
+
+}
+
+.content{
+  width: 500px;
+}
+

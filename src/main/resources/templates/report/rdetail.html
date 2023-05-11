@@ -22,7 +22,6 @@
              <tr><th>氏名</th><td th:text="${report.emp.name}"></td></tr>
              <tr><th>日付</th><td th:text="${report.reportDate}"></td></tr>
              <tr><th>タイトル</th><td th:text="${report.title}"></td></tr>
-             <tr><th>内容</th><td th:text="${report.content}"></td></tr>
              <tr><th>登録日時</th><td th:text="${#temporals.format(report.emp.createdAt,'yyyy/MM/dd HH:mm:ss')}"></td></tr>
              <tr><th>更新日時</th><td th:text="${#temporals.format(report.emp.updatedAt,'yyyy/MM/dd HH:mm:ss')}"></td></tr>
     </table>
