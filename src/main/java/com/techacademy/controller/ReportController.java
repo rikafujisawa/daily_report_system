@@ -13,10 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.techacademy.entity.Authentication;
-import com.techacademy.entity.Employee;
 import com.techacademy.entity.Report;
 import com.techacademy.service.ReportService;
 import com.techacademy.service.UserDetail;
@@ -83,7 +79,14 @@ import com.techacademy.service.UserDetail;
         @GetMapping("/rdetail/{id}/")
         public String getRdetail(@AuthenticationPrincipal UserDetail user, @PathVariable("id") Integer id, Model model) {
             model.addAttribute("user", user);
-            model.addAttribute("report", service.getReport(id));
+            Report r = service.getReport(id);
+            model.addAttribute("report", r);
+
+            // 本人の判定
+            if (user.getUser().getId() == r.getEmp().getId()) {
+                model.addAttribute("honnin", true);
+            }
+
             // 詳細画面に遷移
             return "report/rdetail";
         }
@@ -91,21 +94,19 @@ import com.techacademy.service.UserDetail;
         /** 日報　編集ページを表示 */
         @GetMapping("/rupdate/{id}/")
         public String getReport(@AuthenticationPrincipal UserDetail user, @PathVariable("id") Integer id, Model model) {
+
             // Report登録
             model.addAttribute("user", user);
             Report r = service.getReport(id);
             model.addAttribute("report", r);
 
-            if (user.getUser().getId() == r.getEmp().getId()) {
-                model.addAttribute("honnin", true);
-            }
+
             // 一覧画面に遷移
             return "report/rupdate";
         }
 
 
         /** 日報　編集処理 */
-
         @PostMapping("/rupdate/{id}/")
         public String postRdetail(@AuthenticationPrincipal UserDetail user, @Validated Report report,Model model) {
             // 日報の登録
@@ -118,13 +119,7 @@ import com.techacademy.service.UserDetail;
             return "redirect:/report/allreport";
         }
 
-
-
-
-
-
-
-
+        
 }
 
 
