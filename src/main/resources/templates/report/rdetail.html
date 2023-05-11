@@ -25,7 +25,9 @@
              <tr><th>登録日時</th><td th:text="${#temporals.format(report.emp.createdAt,'yyyy/MM/dd HH:mm:ss')}"></td></tr>
              <tr><th>更新日時</th><td th:text="${#temporals.format(report.emp.updatedAt,'yyyy/MM/dd HH:mm:ss')}"></td></tr>
     </table>
-    <p><a th:href="@{/report/rupdate/{id}/(id=${report.id})}">この日報を編集する</a></p><br>
+    <div th:if="${honnin}">
+    <p><a th:href="@{/report/rupdate/{id}/(id=${report.id})}">この日報を編集する</a></p>
+    </div><br>
     <p><a th:href="@{/report/allreport/}">一覧に戻る</a></p>
 
 </body>

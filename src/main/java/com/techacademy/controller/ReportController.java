@@ -93,9 +93,11 @@ import com.techacademy.service.UserDetail;
         public String getReport(@AuthenticationPrincipal UserDetail user, @PathVariable("id") Integer id, Model model) {
             // Report登録
             model.addAttribute("user", user);
-            model.addAttribute("report", service.getReport(id));
+            Report r = service.getReport(id);
+            model.addAttribute("report", r);
 
-            if (id.equals("id")) {
+            if (user.getUser().getId() == r.getEmp().getId()) {
+                model.addAttribute("honnin", true);
             }
             // 一覧画面に遷移
             return "report/rupdate";
