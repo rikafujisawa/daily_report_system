@@ -27,7 +27,7 @@ public class TopController {
         List<Report> rlist = service.getReportByEmp(user.getUser());
         model.addAttribute("reportlist", rlist);
         // top.html画面に画面遷移
-        return "Top";
+        return "top";
     }
 
 }
